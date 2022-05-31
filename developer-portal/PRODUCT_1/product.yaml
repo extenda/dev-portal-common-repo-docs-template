@@ -1,0 +1,60 @@
+- name: PRODUCT_1                           # Transforms into sidebar label
+  shortName: pr1                            # Short name of the product
+  description: PRODUCT_1 description        # Used to render description on "Products" page
+  image: ./images/PRODUCT_1.png             # Image link to be used as cover image
+  rootDoc: index.md                         # Root doc (overview) of the PRODUCT_1. Transform to page: index.md
+  tags:                                     # Optional, allows to find the product faster on the "Products" page
+    - PRODUCT_1_tag1
+    - PRODUCT_1_tag2
+    - PRODUCT_1_tag3
+  pages:                                    # Page hierarchy of the product
+    - label: Terminology                    # Label of the page to be shown in the sidebar
+      page: ./terminology.md                # Link to the page
+    - label: Concepts
+      page: ./concepts.md
+    - label: Doc_1
+      page: ./docs/doc1.md
+    - label: Doc_2
+      page: ./docs/doc2.md
+      private: true                         # Default: false; Private docs are only accessible for authenticated users
+  services:
+    - name: SERVICE_1
+      shortName: svc1
+      description: SERVICE_1 description
+      image: ./services/SERVICE_1/images/SERVICE_1.png
+      rootDoc: ./services/SERVICE_1/index.md
+      tags:
+        - SERVICE_1_tag1
+        - SERVICE_1_tag2
+        - SERVICE_1_tag3
+        - SERVICE_1_tag4
+      pages:
+        - label: Doc_1
+          page: ./services/SERVICE_1/docs/doc1.md
+        - label: Doc_2
+          page: ./services/SERVICE_1/docs/doc2.md
+          private: true
+        - group: Group
+            separatorLine: true
+            expanded: true
+            pages:
+              - label: Doc3
+                page: ./services/SERVICE_1/docs/doc3.md
+              - label: Doc4
+                page: ./services/SERVICE_1/docs/doc4.md
+      apis:
+        - name: API_1
+          shortName: api1
+          description: API_1 Description
+          definitionId: api1_id
+          tags:
+            - tag1
+            - tag2
+            - tag3
+          generateCodeSamples:
+            languages:
+              - lang: curl
+              - lang: JavaScript
+              - lang: Node.js
+              - lang: C#
+          specUrl: https://test.com/openapi.json
