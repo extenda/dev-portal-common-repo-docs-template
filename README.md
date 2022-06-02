@@ -201,6 +201,40 @@ developer-portal 📂
     │  ...
 ```
 
+
+### Private docs
+
+Developer portal allows you creating private docs. These docs will only be visible to authenticated Extenda users.
+
+Use private docs to explain architecture, 
+
+#### Private pages
+
+If a page doesn't have any specific permission, that means the page will use the default permission from the rbac.yaml file. By default, all pages are publicly accessible.
+
+When a permission is specified for a page, it is treated as a "required permission". That means all visitors must have the specified permission mapped to their role in order to access the page.
+To set permissions for Markdown and MDX pages, add permission: `authenticated-user`to their front matter, for example:
+```markdown
+---
+title: My Private page
+permission: authenticated-user
+---
+
+...
+Content of the page
+```
+
+
+#### Private folders
+
+You can set permissions for all pages (and other files like static assets) in any directory at once. To configure permissions for all files in a directory and all its child directories, create a `permissions.rbac.yaml` file in that directory.
+
+The file must contain the permission: `authenticated-user` entry like in the example:
+
+```yaml
+permission: authenticated-user
+```
+
 ## product.yaml file
 
 
@@ -213,58 +247,27 @@ The structure of the product.yaml aimed at representing [entity hierarchy](#enti
 - name: PRODUCT_NAME                        # Name of the product
   shortName: pr1                            # Short name of the product
   description: string                       # Description of the product. Short and accurate
-  image: ./images/PRODUCT_1.png             # Image link to be used as cover image of the product card in the Developer Portal
+  coverImage: ./images/PRODUCT_1.png             # Image link to be used as cover image of the product card in the Developer Portal
   rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
   tags:                                     # Optional, allows finding the product faster on the "Products" page
     - tag1                                   
     - tag2
-    - tag3
-  pages:                                    # Define pages that would be shown in the left sidebar on the Developer Portal for your product
-    - label: Doc_1                          # Label of the page. Will be used to render the label on the left sidebar on the Developer Portal
-      page: ./docs/doc1.md                  # Path to the Markdown document
-      
-    - label: Terminology                    # Mandatory item Terminology. Must be present for all products
-      page: ./terminology.md                # Link to the terminology Markdown document
-    - label: Concepts                       # Mandatory item Concepts. Must be present for all products
-      page: ./concepts.md                   # Link to the concepts Markdown document
-    - label: Doc_2
-      page: ./docs/doc2.md
-      private: true                         # Optional, default: false; Private docs are only accessible for authenticated (Extenda) users. Good for describing the architecture of the product
-  
   services:                                 # List of the product's services
     - name: Service 1                       # Name of the service 
       shortName: svc1                       # Short name of the service
       description: SERVICE_1 description    # Description of the service. Short and accurate
-      image: ./services/SERVICE_1/images/SERVICE_1.png    # Image link to be used as cover image of the service card in the Developer Portal
-      rootDoc: ./services/SERVICE_1/index.md              # Root doc (high-level overview) of the service. This document is the entry point documentation of the product. Must not contain internal information
-      tags:                                               # Optional, allows finding the service faster
+      coverImage: ./services/SERVICE_1/images/SERVICE_1.png    # Image link to be used as cover image of the service card in the Developer Portal
+      rootDoc: ./services/SERVICE_1/index.md                   # Root doc (high-level overview) of the service. This document is the entry point documentation of the product. Must not contain internal information
+      tags:                                                    # Optional, allows finding the service faster
         - SERVICE_1_tag1
         - SERVICE_1_tag2
-        - SERVICE_1_tag3
-        - SERVICE_1_tag4
-      pages:                                              # Define pages that would be shown in the left sidebar on the Developer Portal for your service   
-        - label: Doc_1                                    # Label of the page. Will be used to render the label on the left sidebar on the Developer Portal
-          page: ./services/SERVICE_1/docs/doc1.md         # Path to the Markdown document
-        - label: Doc_2
-          page: ./services/SERVICE_1/docs/doc2.md
-          private: true                                   # Optional, default: false; Private docs are only accessible for authenticated (Extenda) users. Good for describing the architecture of the service
-        - group: Group                                    # Define an expandable group of documents
-            separatorLine: true                           # Define a line separator for the group
-            expanded: true                                # Control if the group is expanded by default
-            pages:                                        # Define pages that would be shown in the left sidebar on the Developer Portal for the group   
-              - label: Doc3
-                page: ./services/SERVICE_1/docs/doc3.md
-              - label: Doc4
-                page: ./services/SERVICE_1/docs/doc4.md
       apis:                                               # Define a list of service's APIs
         - name: API_1                                     # Name of the API
           shortName: api1                                 # Short name of the API
           description: API_1 Description                  # Description of the product. Short and accurate
-          definitionId: api1_id                            # Unique identifier of the api
           tags:                                           # Optional, allows finding the API faster on the "APIs" page
             - tag1
             - tag2
-            - tag3
           generateCodeSamples:                            # Control generated code samples for your API
             languages:                                    # Choose which programming languages to generate examples for
               - lang: curl
