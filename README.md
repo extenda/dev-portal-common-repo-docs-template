@@ -304,7 +304,6 @@ When a permission is specified for a page, it is treated as a "required permissi
 To set permissions for Markdown and MDX pages, add permission: `authenticated-user`to their front matter, for example:
 ```markdown
 ---
-title: My Private page
 permission: authenticated-user
 ---
 
