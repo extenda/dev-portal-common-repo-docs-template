@@ -151,7 +151,7 @@ For each service folder you have, do the following:
 
 * Create `docs` folder to store `*.md` documentation
 * Create `images` folder to store service-level images
-* Create `api` folder to store API docs for your service
+* Create `apis` folder to store API docs for your service
 * Create [`index.md`](templates/service.md) file. This file is the root doc of your service, containing a high-level overview.
 
 The folder structure should look like this:
@@ -192,7 +192,7 @@ developer-portal 📂
 │       │    │    │    img2.png
 │       │    │    │    ...   
 │       │    │  
-│       │    └───api 📂
+│       │    └───apis 📂
 │       │    │    │    
 │       │    │    │    ...  
 │   
@@ -203,7 +203,7 @@ developer-portal 📂
     │  ...
 ```
 
-### API folder
+### APIs folder
 
 Finally, for each api folder you have do the following:
 
@@ -248,7 +248,7 @@ developer-portal 📂
 │       │    │    │    img2.png
 │       │    │    │    ...   
 │       │    │  
-│       │    └───api 📂          //  Contains docs for all APIs in Service 1
+│       │    └───apis 📂          //  Contains docs for all APIs in Service 1
 │       │    │    │    
 │       │    │    └───api1 📂        
 │       │    │    │    │
