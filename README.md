@@ -316,7 +316,7 @@ Content of the page
 
 You can set permissions for all pages (and other files like static assets) in any directory at once. To configure permissions for all files in a directory (group) and all its child directories (nested groups), create a `permissions.rbac.yaml` file in that directory.
 
-The file must contain the permission: `authenticated-user` entry like in the example:
+The `permissions.rbac.yaml` must contain the permission: `authenticated-user` entry like in the example:
 
 ```yaml
 permission: authenticated-user
