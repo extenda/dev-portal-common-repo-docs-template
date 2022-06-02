@@ -216,8 +216,8 @@ Finally, for each api folder you have do the following:
 ```
 developer-portal 📂
 │
-└───Product 1 📂                             #  Product folder
-│   │   concepts.md                       #  Concepts
+└───Product 1 📂             //Product folder
+│   │   concepts.md         //  Concepts
 │   │   terminology.md                       //  Terminology    
 │   │   index.md                             //  Root documentation of the Product
 │   │   product.yaml                         //  Product definition file
@@ -227,39 +227,44 @@ developer-portal 📂
 │   │   │   doc2.md
 │   │   │   ... 
 │   │   
-│   └───images 📂
+│   └───images 📂                            //  Product-related images
 │   │   │   img1.png
 │   │   │   img2.png
 │   │   │   ... 
 │   │  
-│   └───services 📂
+│   └───services 📂      //  Contains docs for all services in Product 1
 │       │  
 │       └───Service 1 📂
 │       │    │  
 │       │    │   index.md
 │       │    │   
-│       │    └───docs 📂
+│       │    └───docs 📂             // Service-level docs folder
 │       │    │    │    doc1.md
 │       │    │    │    doc2.md
 │       │    │    │    ...     
 │       │    │    
-│       │    └───images 📂
+│       │    └───images 📂            //  Service-related images
 │       │    │    │    img1.png
 │       │    │    │    img2.png
 │       │    │    │    ...   
 │       │    │  
-│       │    └───api 📂
+│       │    └───api 📂          //  Contains docs for all APIs in Service 1
 │       │    │    │    
-│       │    │    └───api1 📂
+│       │    │    └───api1 📂        
 │       │    │    │    │
 │       │    │    │    │  api.yaml
 │       │    │    │    │ 
-│       │    │    │    └───docs 📂
+│       │    │    │    └───docs 📂            //  API-level docs
 │       │    │    │    │    │   doc1.md
 │       │    │    │    │    │   doc2.md
-│       │    │    │    │    ...     
+│       │    │    │    │    |
+│       │    │    │    │    └───Doc Group 📂         //  Docs group
+│       │    │    │    │           │   doc1.md
+│       │    │    │    │           │   doc2.md
+│       │    │    │    │           │   permissions.rbac.yaml            //  Marks Doc Group (and its content) as private (Extenda only) group
+│       │    │    │    │           ...     
 │       │    │    │    │
-│       │    │    │    └───images 📂
+│       │    │    │    └───images 📂          //  API-related images
 │       │    │    │    │     │  img1.png
 │       │    │    │    │     │  img2.png
 │       │    │    │ 
@@ -267,22 +272,6 @@ developer-portal 📂
 │       │    │    └───api2 📂
 │       │    │    │    │
 │       │    │    │    │  ...               
-                  
-
-
-
-│       │    │    │  api.yaml
-│       │    │    │     
-│       │    │    └───docs 📂
-│       │    │    │    doc1.md
-│       │    │    │    doc2.md
-│       │    │    │    ...     
-│       │    │    
-│       │    └───images 📂
-│       │    │    │    img1.png
-│       │    │    │    img2.png
-│       │    │    │    ...   
-│       │    │    
 │   
 │   
 └───Product 2 📂
