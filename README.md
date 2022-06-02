@@ -54,8 +54,6 @@ It means that you *do not need* to create separate docs (.md) for your APIs.
 * API documentation (reference docs) is always **public**
 
 
-
-
 ## File structure
 
 To reflect [entity hierarchy](#entity-hierarchy) in your `<CLAN_NAME>-common` repository,
@@ -218,13 +216,13 @@ Finally, for each api folder you have do the following:
 ```
 developer-portal 📂
 │
-└───Product 1 📂
-│   │   concepts.md
-│   │   terminology.md
-│   │   index.md
-│   │   product.yaml
+└───Product 1 📂                             #  Product folder
+│   │   concepts.md                       #  Concepts
+│   │   terminology.md                       //  Terminology    
+│   │   index.md                             //  Root documentation of the Product
+│   │   product.yaml                         //  Product definition file
 │   │  
-│   └───docs 📂
+│   └───docs 📂                              //  Product-level docs folder
 │   │   │   doc1.md
 │   │   │   doc2.md
 │   │   │   ... 
@@ -252,6 +250,27 @@ developer-portal 📂
 │       │    │  
 │       │    └───api 📂
 │       │    │    │    
+│       │    │    └───api1 📂
+│       │    │    │    │
+│       │    │    │    │  api.yaml
+│       │    │    │    │ 
+│       │    │    │    └───docs 📂
+│       │    │    │    │    │   doc1.md
+│       │    │    │    │    │   doc2.md
+│       │    │    │    │    ...     
+│       │    │    │    │
+│       │    │    │    └───images 📂
+│       │    │    │    │     │  img1.png
+│       │    │    │    │     │  img2.png
+│       │    │    │ 
+│       │    │    │ 
+│       │    │    └───api2 📂
+│       │    │    │    │
+│       │    │    │    │  ...               
+                  
+
+
+
 │       │    │    │  api.yaml
 │       │    │    │     
 │       │    │    └───docs 📂
@@ -275,7 +294,7 @@ developer-portal 📂
 
 Developer portal allows you creating private docs. These docs will only be visible to authenticated Extenda users.
 
-Use private docs to explain architecture, 
+Use private docs to explain architecture, internals of the service and other information that shouldn't be exposed to external developers.
 
 #### Private pages
 
