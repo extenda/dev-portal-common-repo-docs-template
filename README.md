@@ -93,8 +93,7 @@ For each product folder you have, do the following:
 * Create [`concepts.md`](templates/concepts.md) file, describing key concepts
 * Create [`index.md`](templates/product.md) file. This file is the root doc of your product, containing a high-level overview.
 * Create [`terminology.md`](templates/terminology.md) file to describe the terminology used by the product.
-* Create `product.yaml` file. This file will be used to declare everything related to your product: its underlying services and their APIs.
-
+* Create [`product.yaml`](#productyaml-file) file. This file will be used to declare everything related to your product: its underlying services and their APIs.
 
 Now, the file structure should look like this:
 
@@ -153,10 +152,11 @@ developer-portal 📂
 For each service folder you have, do the following:
 
 * Create `docs` folder to store `*.md` documentation
-* Create `images` folder to store product-level images
+* Create `images` folder to store service-level images
+* Create `api` folder to store API docs for your service
 * Create [`index.md`](templates/service.md) file. This file is the root doc of your service, containing a high-level overview.
 
-Your final folder structure should look like this:
+The folder structure should look like this:
 
 
 ```
@@ -193,6 +193,10 @@ developer-portal 📂
 │       │    │    │    img1.png
 │       │    │    │    img2.png
 │       │    │    │    ...   
+│       │    │  
+│       │    └───api 📂
+│       │    │    │    
+│       │    │    │    ...  
 │   
 │   
 │   
@@ -201,6 +205,71 @@ developer-portal 📂
     │  ...
 ```
 
+### API folder
+
+Finally, for each api folder you have do the following:
+
+* Create `docs` folder to store `*.md` documentation of your API
+* Create `images` folder to store api-level images
+* Create [`api.yaml`](#apiyaml-file) file.
+
+**Final folder structure** should look like this:
+
+```
+developer-portal 📂
+│
+└───Product 1 📂
+│   │   concepts.md
+│   │   terminology.md
+│   │   index.md
+│   │   product.yaml
+│   │  
+│   └───docs 📂
+│   │   │   doc1.md
+│   │   │   doc2.md
+│   │   │   ... 
+│   │   
+│   └───images 📂
+│   │   │   img1.png
+│   │   │   img2.png
+│   │   │   ... 
+│   │  
+│   └───services 📂
+│       │  
+│       └───Service 1 📂
+│       │    │  
+│       │    │   index.md
+│       │    │   
+│       │    └───docs 📂
+│       │    │    │    doc1.md
+│       │    │    │    doc2.md
+│       │    │    │    ...     
+│       │    │    
+│       │    └───images 📂
+│       │    │    │    img1.png
+│       │    │    │    img2.png
+│       │    │    │    ...   
+│       │    │  
+│       │    └───api 📂
+│       │    │    │    
+│       │    │    │  api.yaml
+│       │    │    │     
+│       │    │    └───docs 📂
+│       │    │    │    doc1.md
+│       │    │    │    doc2.md
+│       │    │    │    ...     
+│       │    │    
+│       │    └───images 📂
+│       │    │    │    img1.png
+│       │    │    │    img2.png
+│       │    │    │    ...   
+│       │    │    
+│   
+│   
+└───Product 2 📂
+    │  
+    │  ...
+```
 
 ### Private docs
 
@@ -224,16 +293,49 @@ permission: authenticated-user
 Content of the page
 ```
 
-
 #### Private folders
 
-You can set permissions for all pages (and other files like static assets) in any directory at once. To configure permissions for all files in a directory and all its child directories, create a `permissions.rbac.yaml` file in that directory.
+You can set permissions for all pages (and other files like static assets) in any directory at once. To configure permissions for all files in a directory (group) and all its child directories (nested groups), create a `permissions.rbac.yaml` file in that directory.
 
 The file must contain the permission: `authenticated-user` entry like in the example:
 
 ```yaml
 permission: authenticated-user
 ```
+
+### Groups
+
+To group your Markdown documents on the UI, so that they appear in an expandable list, put them into a separate folder inside your `docs` folder.
+
+The **name of the folder** will be used as a title for the dropdown on the UI.
+
+You can create groups for **Products**, **Services** and **APIs**. Developer portal supports **nested groups**.
+
+```
+developer-portal 📂
+│
+└───Product 1 📂
+│   │   concepts.md
+│   │   terminology.md
+│   │   index.md
+│   │   product.yaml
+│   │  
+│   └───docs 📂
+│   │   │   doc1.md
+│   │   │   doc2.md
+│   │   │    
+│   │   └───Doc Group 📂
+│   │   │      │  
+│   │   │      │  group-doc1.md   
+│   │   │      │  group-doc2.md
+│   │   │   
+│   ...  
+│   
+└───Product 2 📂
+    │  
+    │  ...
+```
+
 
 ## product.yaml file
 
@@ -247,9 +349,9 @@ The structure of the product.yaml aimed at representing [entity hierarchy](#enti
 - name: PRODUCT_NAME                        # Name of the product
   shortName: pr1                            # Short name of the product
   description: string                       # Description of the product. Short and accurate
-  coverImage: ./images/PRODUCT_1.png             # Image link to be used as cover image of the product card in the Developer Portal
+  coverImage: ./images/PRODUCT_1.png        # Image link to be used as cover image of the product card in the Developer Portal
   rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
-  tags:                                     # Optional, allows finding the product faster on the "Products" page
+  tags:                                     # Optional, helps to find the product faster on the "Products" page
     - tag1                                   
     - tag2
   services:                                 # List of the product's services
@@ -261,19 +363,22 @@ The structure of the product.yaml aimed at representing [entity hierarchy](#enti
       tags:                                                    # Optional, allows finding the service faster
         - SERVICE_1_tag1
         - SERVICE_1_tag2
-      apis:                                               # Define a list of service's APIs
-        - name: API_1                                     # Name of the API
-          shortName: api1                                 # Short name of the API
-          description: API_1 Description                  # Description of the product. Short and accurate
-          tags:                                           # Optional, allows finding the API faster on the "APIs" page
-            - tag1
-            - tag2
-          generateCodeSamples:                            # Control generated code samples for your API
-            languages:                                    # Choose which programming languages to generate examples for
-              - lang: curl
-              - lang: JavaScript
-              - lang: Node.js
-              - lang: C#
-          specUrl: https://test.com/openapi.json          # Link to the openapi spec file
 
+```
+
+
+## api.yaml file
+
+`api.yaml` is the file used to define an API of your service.
+
+The structure of the `api.yaml` file:
+
+```yaml
+name: API_1                                     # Name of the API
+shortName: api1                                 # Short name of the API
+description: API_1 Description                  # Description of the product. Short and accurate
+specUrl: https://test.com/openapi.json          # Link to the openapi spec file
+tags:                                           # Optional, helps to find the API faster on the "APIs" page
+  - tag1
+  - tag2
 ```
