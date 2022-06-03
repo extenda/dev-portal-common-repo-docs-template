@@ -1,0 +1,13 @@
+name: API_1                                     # Name of the API
+shortName: api1                                 # Short name of the API
+description: API_1 Description                  # Description of the product. Short and accurate
+tags:                                           # Optional, helps to find the API faster on the "APIs" page
+  - tag1
+  - tag2
+generateCodeSamples:                            # Control generated code samples for your API
+  specUrl: https://test.com/openapi.json        # Link to the openapi spec file
+  languages:                                    # Choose which programming languages to generate examples for
+    - lang: curl
+    - lang: JavaScript
+    - lang: Node.js
+    - lang: C#
