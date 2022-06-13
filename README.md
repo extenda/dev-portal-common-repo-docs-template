@@ -69,7 +69,7 @@ folder will be synced to the developer portal.
 
 
 ### Product folder
-In your `developer-portal` folder create folders for each product, developed by your team.
+In your `developer-portal` folder create folders for each product, developed by your tribe.
 
 ```
 developer-portal 📂
@@ -85,9 +85,9 @@ developer-portal 📂
 
 For each product folder you have, do the following:
 
-* Create `docs` folder to store `*.md` documentation
+* Create `docs` folder to store `*.md` documentation of the product
 * Create `images` folder to store product-level images
-* Create [`services`](templates/service.md) folder to store Service docs
+* Create `services` folder. You will define services related to your product in this folder
 * Create [`concepts.md`](templates/concepts.md) file, describing key concepts
 * Create [`index.md`](templates/product.md) file. This file is the root doc of your product, containing a high-level overview.
 * Create [`terminology.md`](templates/terminology.md) file to describe the terminology used by the product.
@@ -153,6 +153,7 @@ For each service folder you have, do the following:
 * Create `images` folder to store service-level images
 * Create `apis` folder to store API docs for your service
 * Create [`index.md`](templates/service.md) file. This file is the root doc of your service, containing a high-level overview.
+* Create [`service.yaml`](#serviceyaml-file) file. This file will be used to declare everything related to your service: its underlying APIs, docs, ADR and architecture.
 
 The folder structure should look like this:
 
@@ -181,6 +182,7 @@ developer-portal 📂
 │       └───Service 1 📂
 │       │    │  
 │       │    │   index.md
+│       │    │   service.yaml
 │       │    │   
 │       │    └───docs 📂
 │       │    │    │    doc1.md
@@ -205,7 +207,7 @@ developer-portal 📂
 
 ### APIs folder
 
-Finally, for each api folder you have do the following:
+Finally, for each api folder do the following:
 
 * Create `docs` folder to store `*.md` documentation of your API
 * Create `images` folder to store api-level images
@@ -347,9 +349,9 @@ developer-portal 📂
 ## product.yaml file
 
 
-`product.yaml` is the main file needed to add your docs to the Developer Portal. It defines products, services and APIs as well as how they should be displayed, which of them are private.
+`product.yaml` is the main file needed to add your docs to the Developer Portal. Use it to define product information
 
-The structure of the product.yaml aimed at representing [entity hierarchy](#entity-hierarchy) of the Developer Portal:
+The structure of the `product.yaml`:
 
 
 ```yaml
@@ -361,16 +363,26 @@ The structure of the product.yaml aimed at representing [entity hierarchy](#enti
   tags:                                     # Optional, helps to find the product faster on the "Products" page
     - tag1                                   
     - tag2
-  services:                                 # List of the product's services
-    - name: Service 1                       # Name of the service 
-      shortName: svc1                       # Short name of the service
-      description: SERVICE_1 description    # Description of the service. Short and accurate
-      coverImage: ./services/SERVICE_1/images/SERVICE_1.png    # Image link to be used as cover image of the service card in the Developer Portal
-      rootDoc: ./services/SERVICE_1/index.md                   # Root doc (high-level overview) of the service. This document is the entry point documentation of the product. Must not contain internal information
-      tags:                                                    # Optional, allows finding the service faster
-        - SERVICE_1_tag1
-        - SERVICE_1_tag2
+```
 
+
+## service.yaml file
+
+
+`service.yaml` is used to define a Service. 
+
+The structure of the `service.yaml` is the same as for the `product.yaml` :
+
+
+```yaml
+- name: SERVICE_NAME                        # Name of the service
+  shortName: svc1                           # Short name of the service
+  description: string                       # Description of the product. Short and accurate
+  coverImage: ./images/SERVICE_1.png        # Image link to be used as cover image of the product card in the Developer Portal
+  rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
+  tags:                                     # Optional, helps to find the product faster on the "Products" page
+    - tag1                                   
+    - tag2
 ```
 
 
@@ -388,4 +400,120 @@ specUrl: https://test.com/openapi.json          # Link to the openapi spec file
 tags:                                           # Optional, helps to find the API faster on the "APIs" page
   - tag1
   - tag2
+```
+
+
+
+# Sync docs action
+
+Files from the `developer-portal` should be synced in the following way:
+
+1. Copy all contents of the `developer-portal` folder  to the [`/products`](https://github.com/extenda/hiiretail-developer-docs-new/tree/master/products) folder in the [developer portal repo](https://github.com/extenda/hiiretail-developer-docs-new)
+   
+    Note: Do not copy `product.yaml`, `service.yaml` and `api.yaml` files.
+
+2. Process all `api.yaml` files following this [guide](#apiyaml-processing). 
+3. Process all `product.yaml`and `service.yaml` files following this guide.
+
+
+
+
+
+## api.yaml processing
+
+For each `api.yaml` do:
+
+1. Replace `api.yaml` with `<API_NAME>.page.yaml`. The new file should be created in the same folder where the original `api.yaml` was.
+   
+   `<API_NAME>` should be taken from the `name` field in the [`api.yaml` file](#apiyaml-file)
+
+
+2. The content of the `<API_NAME>.page.yaml` should be the following:
+
+```yaml
+type: reference-docs         # Hardcoded
+definitionId: <API_NAME>      # Unique API identifier. Should be autogenerated using "name" field in the api.yaml file
+settings:                    # Hardcoded
+  generateCodeSamples:       # Hardcoded
+    languages:               # Hardcoded
+      - lang: curl           # Hardcoded
+      - lang: JavaScript     # Hardcoded
+      - lang: Node.js        # Hardcoded
+      - lang: C#             # Hardcoded
+      - lang: Java           # Hardcoded
+```
+
+3. Add `definitionId` from the `<API_NAME>.page.yaml` to the [`oasDefinitions` field](https://github.com/extenda/hiiretail-developer-docs-new/blob/466042e062d95a6f2763969da3138f1b6058bca0/siteConfig.yaml#L16)  in the [`siteConfig.yaml`](https://github.com/extenda/hiiretail-developer-docs-new/blob/master/siteConfig.yaml) of the Developer Portal:
+
+Example:
+```yaml
+oasDefinitions:
+  ...
+  iam-api: https://iam-api.retailsvc.com/schemas/v1/openapi.json     
+  <API_NAME>: specUrl       #Use specUrl field from the api.yaml file
+```
+
+
+## product.yaml and service.yaml processing
+
+For each product folder:
+
+1. Compile `product.yaml` and all `service.yaml` files into a single file called `sidebars.yaml`.
+
+`sidebars.yaml` should be placed in the root of the [product](#product-folder) folder in the Developer Portal _(assuming that the product folder was copied previously)_
+
+2. The content of the `sidebars.yaml` should be the following:
+
+```yaml
+- label: <PRODUCT_NAME>         # "name" filed from the product.yaml
+  page: index.md                # "rootDoc" field from the product.yaml
+  expanded: always              # Hardcoded
+  pages:
+
+     # A regular page is a Markdown document inside /developer-portal/PRODUCT_NAME/docs
+     - label: DOC 1              # Title of the page 
+       page: docs/doc1.md        # Path to the Markdown document
+      ...
+
+    # A group is a sub folder inside /developer-portal/PRODUCT_NAME/docs/...
+    - group: Group              # Name of the sub folder 
+      expanded: false           # Hardcoded
+      pages:
+       - label: GroupDoc 1                  # Title of the page (should be taken from the document content)
+         page: docs/group/group-doc1.md     # Path to the Markdown document
+    
+    
+    # Services section should be created for each product
+    - group: Services         # Hardcoded
+      expanded: true          # Hardcoded
+      pages:
+           
+        # For each service.yaml file generate a service group    
+        - group: Service1       # "name" filed from the service.yaml
+          expanded: false       # Hardcoded
+          page: services/service1/index.md          # "rootDoc" field from the service.yaml
+          pages:
+           - label: Doc1                            # Title of the page (should be taken from the document content)
+             page: services/service1/docs/doc1.md   # Path to the Markdown document
+             ...
+
+            # A group is a sub folder inside /developer-portal/PRODUCT_NAME/services/docs/...
+           - group: Group              # Name of the sub folder 
+             expanded: false           # Hardcoded
+             pages:
+                - label: GroupDoc 1                  # Title of the page (should be taken from the document content)
+                  page: docs/group/group-doc1.md     # Path to the Markdown document
+
+            # For each api.yaml file generate an api group
+           - group: APIs              # Hardcoded
+             expanded: true           # Hardcoded
+             pages:
+                - group: <API_NAME>
+                  expanded: false
+                  page: services/service1.apis/api1/index.md  # "rootDoc" field from the api.yaml
+                  pages:
+                     - label: API DOC 1              # Title of the page in the 
+                       page: services/service1/apis/api1/docs/api-doc1.md        # Path to the Markdown document
+
+                     - page: services/service1/apis/api1/api1.page.yaml          # API reference page
 ```
