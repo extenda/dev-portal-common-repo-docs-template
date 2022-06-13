@@ -413,7 +413,7 @@ Files from the `developer-portal` should be synced in the following way:
     Note: Do not copy `product.yaml`, `service.yaml` and `api.yaml` files.
 
 2. Process all `api.yaml` files following this [guide](#apiyaml-processing). 
-3. Process all `product.yaml`and `service.yaml` files following this guide.
+3. Process all `product.yaml`and `service.yaml` files following this [guide](#productyaml-and-serviceyaml-processing).
 
 
 
