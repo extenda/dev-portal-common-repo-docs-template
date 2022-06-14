@@ -1,0 +1,7 @@
+- name: SERVICE_NAME                        # Name of the service
+  shortName: svc1                           # Short name of the service
+  description: string                       # Description of the product. Short and accurate
+  coverImage: ./images/SERVICE_1.png        # Image link to be used as cover image of the product card in the Developer Portal
+  tags:                                     # Optional, helps to find the product faster on the "Products" page
+    - tag1
+    - tag2

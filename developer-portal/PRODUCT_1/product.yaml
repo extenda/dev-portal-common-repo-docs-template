@@ -2,16 +2,6 @@
   shortName: pr1                            # Short name of the product
   description: string                       # Description of the product. Short and accurate
   coverImage: ./images/PRODUCT_1.png        # Image link to be used as cover image of the product card in the Developer Portal
-  rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
   tags:                                     # Optional, helps to find the product faster on the "Products" page
     - tag1
     - tag2
-  services:                                 # List of the product's services
-    - name: Service 1                       # Name of the service
-      shortName: svc1                       # Short name of the service
-      description: SERVICE_1 description    # Description of the service. Short and accurate
-      coverImage: ./services/SERVICE_1/images/SERVICE_1.png    # Image link to be used as cover image of the service card in the Developer Portal
-      rootDoc: ./services/SERVICE_1/index.md                   # Root doc (high-level overview) of the service. This document is the entry point documentation of the product. Must not contain internal information
-      tags:                                                    # Optional, allows finding the service faster
-        - SERVICE_1_tag1
-        - SERVICE_1_tag2

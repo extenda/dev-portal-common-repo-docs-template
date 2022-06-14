@@ -69,7 +69,7 @@ folder will be synced to the developer portal.
 
 
 ### Product folder
-In your `developer-portal` folder create folders for each product, developed by your team.
+In your `developer-portal` folder create folders for each product, developed by your tribe.
 
 ```
 developer-portal 📂
@@ -85,11 +85,11 @@ developer-portal 📂
 
 For each product folder you have, do the following:
 
-* Create `docs` folder to store `*.md` documentation
+* Create `docs` folder to store `*.md` documentation of the product
 * Create `images` folder to store product-level images
-* Create [`services`](templates/service.md) folder to store Service docs
+* Create `services` folder. You will define services related to your product in this folder
 * Create [`concepts.md`](templates/concepts.md) file, describing key concepts
-* Create [`index.md`](templates/product.md) file. This file is the root doc of your product, containing a high-level overview.
+* Create [`index.md`](templates/product.md) file. This file is the root doc of your product, containing a high-level overview. `index.md` **is mandatory.**
 * Create [`terminology.md`](templates/terminology.md) file to describe the terminology used by the product.
 * Create [`product.yaml`](#productyaml-file) file. This file will be used to declare everything related to your product: its underlying services and their APIs.
 
@@ -152,7 +152,8 @@ For each service folder you have, do the following:
 * Create `docs` folder to store `*.md` documentation
 * Create `images` folder to store service-level images
 * Create `apis` folder to store API docs for your service
-* Create [`index.md`](templates/service.md) file. This file is the root doc of your service, containing a high-level overview.
+* Create [`index.md`](templates/service.md) file. This file is the root doc of your service, containing a high-level overview. `index.md` **is mandatory.**
+* Create [`service.yaml`](#serviceyaml-file) file. This file will be used to declare everything related to your service: its underlying APIs, docs, ADR and architecture.
 
 The folder structure should look like this:
 
@@ -181,6 +182,7 @@ developer-portal 📂
 │       └───Service 1 📂
 │       │    │  
 │       │    │   index.md
+│       │    │   service.yaml
 │       │    │   
 │       │    └───docs 📂
 │       │    │    │    doc1.md
@@ -205,7 +207,7 @@ developer-portal 📂
 
 ### APIs folder
 
-Finally, for each api folder you have do the following:
+Finally, for each api folder do the following:
 
 * Create `docs` folder to store `*.md` documentation of your API
 * Create `images` folder to store api-level images
@@ -347,9 +349,9 @@ developer-portal 📂
 ## product.yaml file
 
 
-`product.yaml` is the main file needed to add your docs to the Developer Portal. It defines products, services and APIs as well as how they should be displayed, which of them are private.
+`product.yaml` is the main file needed to add your docs to the Developer Portal. Use it to define product information
 
-The structure of the product.yaml aimed at representing [entity hierarchy](#entity-hierarchy) of the Developer Portal:
+The structure of the `product.yaml`:
 
 
 ```yaml
@@ -357,20 +359,28 @@ The structure of the product.yaml aimed at representing [entity hierarchy](#enti
   shortName: pr1                            # Short name of the product
   description: string                       # Description of the product. Short and accurate
   coverImage: ./images/PRODUCT_1.png        # Image link to be used as cover image of the product card in the Developer Portal
-  rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
   tags:                                     # Optional, helps to find the product faster on the "Products" page
     - tag1                                   
     - tag2
-  services:                                 # List of the product's services
-    - name: Service 1                       # Name of the service 
-      shortName: svc1                       # Short name of the service
-      description: SERVICE_1 description    # Description of the service. Short and accurate
-      coverImage: ./services/SERVICE_1/images/SERVICE_1.png    # Image link to be used as cover image of the service card in the Developer Portal
-      rootDoc: ./services/SERVICE_1/index.md                   # Root doc (high-level overview) of the service. This document is the entry point documentation of the product. Must not contain internal information
-      tags:                                                    # Optional, allows finding the service faster
-        - SERVICE_1_tag1
-        - SERVICE_1_tag2
+```
 
+
+## service.yaml file
+
+
+`service.yaml` is used to define a Service. 
+
+The structure of the `service.yaml` is the same as for the `product.yaml` :
+
+
+```yaml
+- name: SERVICE_NAME                        # Name of the service
+  shortName: svc1                           # Short name of the service
+  description: string                       # Description of the product. Short and accurate
+  coverImage: ./images/SERVICE_1.png        # Image link to be used as cover image of the product card in the Developer Portal
+  tags:                                     # Optional, helps to find the product faster on the "Products" page
+    - tag1                                   
+    - tag2
 ```
 
 
@@ -389,3 +399,8 @@ tags:                                           # Optional, helps to find the AP
   - tag1
   - tag2
 ```
+
+# Sync docs action spec
+
+Specs for the sync docs action can be found [here](SYNC-DOCS.md)
+
