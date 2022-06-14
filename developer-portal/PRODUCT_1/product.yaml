@@ -2,7 +2,6 @@
   shortName: pr1                            # Short name of the product
   description: string                       # Description of the product. Short and accurate
   coverImage: ./images/PRODUCT_1.png        # Image link to be used as cover image of the product card in the Developer Portal
-  rootDoc: index.md                         # Root doc (high-level overview) of the product. This document is the entry point documentation of the product. Must not contain internal information
   tags:                                     # Optional, helps to find the product faster on the "Products" page
     - tag1
     - tag2
