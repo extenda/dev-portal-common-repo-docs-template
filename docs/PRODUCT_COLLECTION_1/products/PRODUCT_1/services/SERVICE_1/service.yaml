@@ -1,4 +1,5 @@
 name: SERVICE_1                                     # Name of the Service
+openapi: https://some-url.com/openapi.json      # (Optional) if the service is an API provide a url to openapi spec file
 shortName: svc1                                 # Short name of the Service
 description: SERVICE_1 Description                  # Description of the Service. Short and accurate
 rootDoc: index.md                               # Root doc (high-level overview) of the Service. This document is the entry point documentation of the Service
