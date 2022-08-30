@@ -1,0 +1,2 @@
+# [PRODUCT_COLLECTION_NAME] terminology
+

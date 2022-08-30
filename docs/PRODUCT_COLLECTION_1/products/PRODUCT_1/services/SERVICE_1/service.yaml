@@ -1,0 +1,7 @@
+name: SERVICE_1                                     # Name of the Service
+shortName: svc1                                 # Short name of the Service
+description: SERVICE_1 Description                  # Description of the Service. Short and accurate
+rootDoc: index.md                               # Root doc (high-level overview) of the Service. This document is the entry point documentation of the Service
+tags:                                           # Optional, helps to find the Service faster on the "APIs" page
+  - tag1
+  - tag2

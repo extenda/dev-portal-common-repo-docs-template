@@ -1,0 +1,7 @@
+- name: PRODUCT_COLLECTION_NAME                        # Name of the product collection
+  shortName: prc1                            # Short name of the product collection
+  description: string                       # Description of the product collection. Short and accurate
+  coverImage: ./images/PRODUCT_COLLECTION_1.png        # Image link to be used as cover image of the product collection card in the Developer Portal
+  tags:                                     # Optional, helps to find the product collection faster on the "Products" page
+    - tag1
+    - tag2

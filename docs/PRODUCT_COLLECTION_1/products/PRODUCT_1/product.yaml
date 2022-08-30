@@ -1,5 +1,5 @@
 - name: PRODUCT_NAME                        # Name of the product
-  shortName: pr1                            # Short name of the product
+  shortName: pr1                           # Short name of the product
   description: string                       # Description of the product. Short and accurate
   coverImage: ./images/PRODUCT_1.png        # Image link to be used as cover image of the product card in the Developer Portal
   tags:                                     # Optional, helps to find the product faster on the "Products" page
