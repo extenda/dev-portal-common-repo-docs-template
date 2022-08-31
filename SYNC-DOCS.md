@@ -1,22 +1,24 @@
 # Sync docs action
 
-Files from the `developer-portal` folder should be synced in the following way:
+Files from the `docs` folder should be synced in the following way:
 
-1. Copy all contents of the `developer-portal` folder  to the [`/products`](https://github.com/extenda/hiiretail-developer-docs-new/tree/master/products) folder in the [developer portal repo](https://github.com/extenda/hiiretail-developer-docs-new)
+1. Copy all contents of the `docs` folder  to the [`/product-collections`](https://github.com/extenda/hiiretail-developer-docs-new/tree/master/products) folder in the [developer portal repo](https://github.com/extenda/hiiretail-developer-docs-new)
 
-   Note: Do not copy `product.yaml`, `service.yaml` and `api.yaml` files.
+   Note: Do not copy `product-collection.yaml`, `product.yaml` and `service.yaml` files.
 
-2. Process all `api.yaml` files following this [guide](#apiyaml-processing).
-3. Process all `product.yaml`and `service.yaml` files following this [guide](#productyaml-and-serviceyaml-processing).
+2. Process all `service.yaml` files following this [guide](#apiyaml-processing).
+3. Process all `product-collection.yaml`and `product.yaml` files following this [guide](#productyaml-and-serviceyaml-processing).
 
-## api.yaml processing
+## service.yaml processing
 
-For each `api.yaml` do:
+For each `service.yaml` do:
 
-1. Replace `api.yaml` with `<API_NAME>.page.yaml`. The new file should be created in the same folder where the original `api.yaml` was.
+
+if `service.yaml` contains `openapi` field with a valid url to openapi spec file do:
+
+1. Replace `service.yaml` with `<API_NAME>.page.yaml`. The new file should be created in the same folder where the original `api.yaml` was.
 
    `<API_NAME>` should be taken from the `name` field in the [`api.yaml` file](README.md#apiyaml-file)
-
 
 2. The content of the `<API_NAME>.page.yaml` should be the following:
 
@@ -44,28 +46,28 @@ oasDefinitions:
 ```
 
 
-## product.yaml and service.yaml processing
+## product-collection.yaml and product.yaml processing
 
 For each product folder:
 
-1. Compile `product.yaml` and all `service.yaml` files into a single file called `sidebars.yaml`.
+1. Compile `product-collection.yaml` and all `product.yaml` files into a single file called `sidebars.yaml`.
 
-`sidebars.yaml` should be placed in the root of the [product](README.md#product-folder) folder in the Developer Portal _(assuming that the product folder was copied previously)_
+`sidebars.yaml` should be placed in the root of the [product-collection](README.md#product-folder) folder in the Developer Portal _(assuming that the product folder was copied previously)_
 
 2. The content of the `sidebars.yaml` should look like this:
 
 ```yaml
-- label: <PRODUCT_NAME>         # "name" filed from the product.yaml
+- label: <PRODUCT_COLLECTION_NAME>         # "name" filed from the product-collection.yaml
   page: index.md                # Hardcoded
   expanded: always              # Hardcoded
   pages:
 
-     # A regular page is a Markdown document inside /developer-portal/PRODUCT_NAME/docs
+     # A regular page is a Markdown document inside /developer-portal/PRODUCT_COLLECTION_NAME/docs
      - label: DOC 1              # Title of the page 
        page: docs/doc1.md        # Path to the Markdown document
       ...
 
-    # A group is a sub folder inside /developer-portal/PRODUCT_NAME/docs/...
+    # A group is a sub folder inside /developer-portal/PRODUCT_COLLECTION_NAME/docs/...
     - group: Group              # Name of the sub folder 
       expanded: false           # Hardcoded
       pages:
@@ -73,18 +75,18 @@ For each product folder:
          page: docs/group/group-doc1.md     # Path to the Markdown document
     
     
-    # Services section should be created for each product
-    - group: Services         # Hardcoded
+    # Products section should be created for each product collection
+    - group: Products         # Hardcoded
       expanded: true          # Hardcoded
       pages:
            
-        # For each service.yaml file generate a service group    
-        - group: Service1       # "name" filed from the service.yaml
+        # For each product.yaml file generate a product group    
+        - group: Product1       # "name" filed from the service.yaml
           expanded: false       # Hardcoded
-          page: services/service1/index.md          # Hardcoded
+          page: products/products1/index.md          # Hardcoded
           pages:
            - label: Doc1                            # Title of the page (should be taken from the document content)
-             page: services/service1/docs/doc1.md   # Path to the Markdown document
+             page: products/product1/docs/doc1.md   # Path to the Markdown document
              ...
 
             # A group is a sub folder inside /developer-portal/PRODUCT_NAME/services/docs/...
@@ -95,15 +97,15 @@ For each product folder:
                   page: docs/group/group-doc1.md     # Path to the Markdown document
 
             # For each api.yaml file generate an api group
-           - group: APIs              # Hardcoded
+           - group: Services              # Hardcoded
              expanded: true           # Hardcoded
              pages:
                 - group: <API_NAME>
                   expanded: false
-                  page: services/service1.apis/api1/index.md  # "rootDoc" field from the api.yaml
+                  page: products/product1/services/service1/index.md  # "rootDoc" field from the api.yaml
                   pages:
-                     - label: API DOC 1              # Title of the page in the 
-                       page: services/service1/apis/api1/docs/api-doc1.md        # Path to the Markdown document
+                     - label: Service DOC 1              # Title of the page
+                       page: products/product1/services/service1/docs/api-doc1.md        # Path to the Markdown document
 
-                     - page: services/service1/apis/api1/api1.page.yaml          # API reference page
+                     - page: products/product1/services/service1/api1.page.yaml          # API reference page
 ```
