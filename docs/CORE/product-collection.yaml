@@ -1,0 +1,15 @@
+- name: Hiiretail Core Services
+  shortName: hiiretail-core
+  description: |
+      Hiiretail Core Services - is a set of services/tools,
+      that come with the platform by default, and needed to
+      support other services.
+  coverImage: todo
+  tags:
+    - core
+    - iam
+    - txr
+    - repository
+    - transaction
+    - reports
+    - ocms
