@@ -1,0 +1,10 @@
+name: IAM Sync Worker                                     
+shortName: iam-sync                                 
+description: | 
+  IAM Sync worker - syncs IAM API database with other external services
+  like User Profile service, Google identity platform etc
+rootDoc: index.md                               
+tags:                                          
+  - worker
+  - iam
+  - pubsub

@@ -1,0 +1,9 @@
+name: IAM API                                     
+openapi: https://iam-api.retailsvc.com/schemas/v1/openapi.json  
+shortName: iam-api                                 
+description: | 
+  IAM API - is a rest API for managing IAM resources in Hiiretail.
+  API lets you manage permissions, roles, groups, identity providers etc
+rootDoc: index.md                               
+tags:                                          
+  - api

@@ -1,0 +1,8 @@
+name: IAM UI                                     
+shortName: iam-ui                                 
+description: | 
+  IAM UI - is a frontend application and primary user of IAM API.
+  Provides UI, to manage IAM Resources.
+rootDoc: index.md                               
+tags:                                          
+  - ui
