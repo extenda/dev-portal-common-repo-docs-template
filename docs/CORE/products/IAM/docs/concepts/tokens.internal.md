@@ -55,8 +55,6 @@ allow {
 Validation of OCMS token is not different from IAM token,
 but OCMS token also allows some additional things that you can validate.
 
-[OCMS specific OPA functions](https://github.com/extenda/opa-functions#hii-retail-oauth2-clients)
-
 #### Manually
 
 Every OCMS token is signed by OCMS Auth server, that issues JWT tokens.
